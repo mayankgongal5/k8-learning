@@ -1,0 +1,34 @@
+kind: CustomResourceDefinition
+apiVersion: apiextensions.k8s.io/v1
+metadata:
+  name: devopss.clovers.live
+spec:
+  group: clovers.live
+  names:
+    plural: devopss
+    singular: devops
+    kind: DevOps
+    shortNames:
+      - mayank
+      - ccrds
+  scope: Namespaced
+  versions:
+  - name: v1
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:  # <--- The 'spec' field should contain your properties
+            type: object
+            properties:
+              name:
+                type: string
+                description: "This is DevOps"
+              duration:
+                type: string
+                description: "currently learning"
+              whatsnext:
+                type: string
+                description: "revising topics and learning monitoring"

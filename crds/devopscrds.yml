@@ -1,0 +1,8 @@
+kind: DevOps
+apiVersion: clovers.live/v1
+metadata:
+  name: testcrds
+spec:  # <--- Now include the 'spec' field
+  name: hello
+  duration: idk uh
+  whatsnext: snacks

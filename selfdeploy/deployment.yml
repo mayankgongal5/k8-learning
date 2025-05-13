@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: self-deployment
+  namespace: self
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: self
+  template:
+    metadata:
+      labels:
+        app: self
+    spec:
+      containers:
+      - name: self
+        image: mayankgongal/online-shopping-k8s:latest
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi
+        livenessProbe:
+          httpGet:
+            path: /self
+            port: 80
+        readinessProbe:
+          httpGet:
+            path: /self
+            port: 80
+

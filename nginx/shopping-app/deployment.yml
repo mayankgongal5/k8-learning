@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: self-shopping
+  namespace: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: self
+  template:
+    metadata:
+      labels:
+        app: self
+    spec:
+      containers:
+      - name: self
+        image: mayankgongal/online-shopping-k8s:latest
+        ports:
+        - containerPort: 80

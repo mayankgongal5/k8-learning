@@ -1,0 +1,41 @@
+kind: CronJob
+apiVersion: batch/v1
+metadata:
+  name: minute-backup
+  namespace: nginx
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: minute-backup
+          labels:
+            app: minute-backup
+        spec:
+          containers:
+          - name: backup-container
+            image: busybox:latest
+            command:
+            - sh
+            - -c
+            - >
+              echo "Backup started using cron job";
+              mkdir -p /backups && mkdir -p /demo-data && cp -r /demo-data /backups && echo "Backup completed";
+            volumeMounts:
+            - name: data-volume
+              mountPath: /demo-data
+            - name: backup-volume
+              mountPath: /backups
+          restartPolicy: OnFailure
+          volumes:
+          - name: data-volume
+            hostPath:
+              path: /Users/mayankgongal/Dev/k8/k81/nginx/demo-data
+              type: DirectoryOrCreate
+          - name: backup-volume
+            hostPath:
+              path: /Users/mayankgongal/Dev/k8/k81/nginx/backups
+              type: DirectoryOrCreate
+
+
